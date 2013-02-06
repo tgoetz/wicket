@@ -16,16 +16,6 @@
  */
 package org.apache.wicket.spring.test;
 
-import java.io.IOException;
-import java.io.Serializable;
-import java.lang.annotation.Annotation;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanNotOfRequiredTypeException;
@@ -35,7 +25,14 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.MessageSourceResolvable;
 import org.springframework.context.NoSuchMessageException;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.lang.annotation.Annotation;
+import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * Mock application context object. This mock context allows easy creation of unit tests by allowing
@@ -443,7 +440,13 @@ public class ApplicationContextMock implements ApplicationContext, Serializable
 
 	}
 
-	/**
+    @Override
+    public String getApplicationName()
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
 	 * @see org.springframework.beans.factory.BeanFactory#getBean(java.lang.String,
 	 *      java.lang.Object[])
 	 */
@@ -475,4 +478,9 @@ public class ApplicationContextMock implements ApplicationContext, Serializable
 		throw new UnsupportedOperationException();
 	}
 
+    @Override
+    public Environment getEnvironment()
+    {
+        throw new UnsupportedOperationException();
+    }
 }

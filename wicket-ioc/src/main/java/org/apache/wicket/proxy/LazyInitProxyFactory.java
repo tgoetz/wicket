@@ -16,6 +16,18 @@
  */
 package org.apache.wicket.proxy;
 
+import org.apache.wicket.Application;
+import org.apache.wicket.WicketRuntimeException;
+import org.apache.wicket.application.IClassResolver;
+import org.apache.wicket.core.util.lang.WicketObjects;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.util.io.IClusterable;
+import org.springframework.cglib.core.DefaultNamingPolicy;
+import org.springframework.cglib.core.Predicate;
+import org.springframework.cglib.proxy.Enhancer;
+import org.springframework.cglib.proxy.MethodInterceptor;
+import org.springframework.cglib.proxy.MethodProxy;
+
 import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.lang.reflect.InvocationHandler;
@@ -24,18 +36,6 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Arrays;
 import java.util.List;
-
-import net.sf.cglib.core.DefaultNamingPolicy;
-import net.sf.cglib.core.Predicate;
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
-import org.apache.wicket.Application;
-import org.apache.wicket.WicketRuntimeException;
-import org.apache.wicket.application.IClassResolver;
-import org.apache.wicket.core.util.lang.WicketObjects;
-import org.apache.wicket.model.IModel;
-import org.apache.wicket.util.io.IClusterable;
 
 /**
  * A factory class that creates lazy init proxies given a type and a {@link IProxyTargetLocator}
@@ -263,7 +263,7 @@ public class LazyInitProxyFactory
 	 */
 	private static class CGLibInterceptor
 		implements
-			MethodInterceptor,
+            MethodInterceptor,
 			ILazyInitProxy,
 			Serializable,
 			IWriteReplace
@@ -293,8 +293,8 @@ public class LazyInitProxyFactory
 		}
 
 		/**
-		 * @see net.sf.cglib.proxy.MethodInterceptor#intercept(java.lang.Object,
-		 *      java.lang.reflect.Method, java.lang.Object[], net.sf.cglib.proxy.MethodProxy)
+         * @see MethodInterceptor#intercept(Object,
+         *      java.lang.reflect.Method, Object[], org.springframework.cglib.proxy.MethodProxy)
 		 */
 		@Override
 		public Object intercept(final Object object, final Method method, final Object[] args,
